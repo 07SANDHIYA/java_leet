@@ -7,10 +7,7 @@ class Solution {
         while (mid <= high) {
 
             if (nums[mid] == 0) {
-                int temp = nums[low];
-                nums[low] = nums[mid];
-                nums[mid] = temp;
-
+              swap(nums,mid,low);
                 low++;
                 mid++;
             }
@@ -20,12 +17,14 @@ class Solution {
             }
 
             else {
-                int temp = nums[mid];
-                nums[mid] = nums[high];
-                nums[high] = temp;
-
+              swap(nums,mid,high);
                 high--;
             }
         }
+    }
+    private void swap(int[] nums,int i,int j){
+        int temp=nums[i];
+        nums[i]=nums[j];
+        nums[j]=temp;
     }
 }
