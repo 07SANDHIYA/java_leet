@@ -1,39 +1,36 @@
 
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
- */
+import java.util.*;
 
 class Solution {
     public boolean isSameTree(TreeNode p, TreeNode q) {
-        // If both nodes are null, they are the same
-        if (p == null && q == null) {
-            return true;
+        Queue<TreeNode> queue = new LinkedList<>();
+
+        queue.add(p);
+        queue.add(q);
+
+        while (!queue.isEmpty()) {
+            TreeNode a = queue.poll();
+            TreeNode b = queue.poll();
+
+            if (a == null && b == null) {
+                continue;
+            }
+
+            if (a == null || b == null) {
+                return false;
+            }
+
+            if (a.val != b.val) {
+                return false;
+            }
+
+            queue.add(a.left);
+            queue.add(b.left);
+
+            queue.add(a.right);
+            queue.add(b.right);
         }
 
-        // If only one node is null, they are different
-        if (p == null || q == null) {
-            return false;
-        }
-
-        // If node values are different, trees are different
-        if (p.val != q.val) {
-            return false;
-        }
-
-        // Check left and right subtrees
-        return isSameTree(p.left, q.left) &&
-               isSameTree(p.right, q.right);
+        return true;
     }
 }
